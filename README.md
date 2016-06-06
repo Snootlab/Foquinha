@@ -9,7 +9,7 @@ Requirements
 Script
 ------
 
-*foquinha.py : swiss knife for Foquinha Raspberry shield
+* foquinha.py : swiss knife for Foquinha Raspberry shield
 
 Documentation
 -------------
