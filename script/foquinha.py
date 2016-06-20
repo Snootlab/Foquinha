@@ -31,7 +31,7 @@ def usages():
 	print 'Examples:'
 	print '\tReturn supply voltage, temperature et software version with :'
 	print '\t\t./foquinha.py -v -t -S'
-	print '\tSend an message (max 12 bytes) in hexa :'
+	print '\tSend a message (max 12 bytes) in hexa :'
 	print '\t\t./foquinha.py -m "65 66 68" '
 
 def my_print(string) :
