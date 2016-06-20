@@ -4,7 +4,7 @@ Sigfox network made available for Raspberry Pi
 Requirements
 ------------
 
-[Raspberry Pi](http://snootlab.com/raspberry-pi/985-nouveau-raspberry-pi-3-modele-b-arm-v8-64-bits-1g-ram-fr.html) + [Foquinha-Pi](http://snootlab.com/shields-snootlab/1107-foquinha-pi-connectivite-1-an-accessoires-fr.html)
+[Raspberry Pi 2 or newer](http://snootlab.com/raspberry-pi/985-nouveau-raspberry-pi-3-modele-b-arm-v8-64-bits-1g-ram-fr.html) + [Foquinha-Pi](http://snootlab.com/shields-snootlab/1107-foquinha-pi-connectivite-1-an-accessoires-fr.html)
 
 Script
 ------

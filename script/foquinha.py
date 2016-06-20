@@ -17,7 +17,7 @@ import sys, getopt
 
 # Usages
 def usages():
-	print 'Usage: foquinha.py [COMMANDS(S)] (You can use many commands)'
+	print 'Usage: foquinha.py [COMMAND(S)] (You can use many commands)'
 	print 'Commands list:'
 	print '\t -q,--quiet \t\t Quiet mode.'
 	print '\t -D,--device \t\t Serial device (default=/dev/ttyAMA0).'
@@ -45,14 +45,14 @@ def transfert(send, true, false) :
 	true += "\r\n"
 	false += "\r\n"
 	# Send data
-	serialFd.write(send);
-	# Wait response
+	serialFd.write(send)
+	# Wait for response
 	data = ''
 	first = 1
 	while true not in data and false not in data :
 		c = serialFd.read(1)
 		if c == '' :
-			return '';
+			return ''
 		elif first == 1 :	# remove useless \r\n before reply
 			if c != "\r" and c != "\n" :
 				first = 0
@@ -64,7 +64,7 @@ def transfert(send, true, false) :
 		data = ''
 	else :
 		data = data.replace("\r\n\r\n","\r\n")
-
+		
 	return data
 
 # Commands
@@ -74,14 +74,14 @@ def sendMsg(msg) :
 		my_print('OK!')
 		return 0
 	else:
-		sys.stderr.write('Sending failed!')
+		sys.stderr.write('Sending failed!\n')
 		return 1
 
 def returnID() :
 	my_print('Request ID...')
 	data = transfert('ATI7', 'OK', 'ERROR')
 	if data == '' :
-		sys.stderr.write('ERROR: No reply!')
+		sys.stderr.write('ERROR: No reply!\n')
 		return 1
 	else :
 		lists = data.split("\r\n");
@@ -93,7 +93,7 @@ def returnHardwareVersion() :
 	my_print('Request firmware version...')
 	data = transfert('ATI11', 'OK', 'ERROR')
 	if data == '' :
-		sys.stderr.write('ERROR: No reply!')
+		sys.stderr.write('ERROR: No reply!\n')
 		return 1
 	else :
 		lists = data.split("\r\n");
@@ -104,7 +104,7 @@ def returnFirmwareVersion() :
 	my_print('Request firmware version...')
 	data = transfert('ATI13', 'OK', 'ERROR')
 	if data == '' :
-		sys.stderr.write('ERROR: No reply!')
+		sys.stderr.write('ERROR: No reply!\n')
 		return 1
 	else :
 		lists = data.split("\r\n");
@@ -115,7 +115,7 @@ def returnTemperature() :
 	my_print('Request temperature...')
 	data = transfert('ATI26', 'OK', 'ERROR')
 	if data == '' :
-		sys.stderr.write('ERROR: No reply!')
+		sys.stderr.write('ERROR: No reply!\n')
 		return 1
 	else :
 		lists = data.split("\r\n");
@@ -126,7 +126,7 @@ def returnSupplyVoltage() :
 	my_print('Request supply voltage...')
 	data = transfert('ATI27', 'OK', 'ERROR')
 	if data == '' :
-		sys.stderr.write('ERROR: No reply!')
+		sys.stderr.write('ERROR: No reply!\n')
 		return 1
 	else :
 		lists = data.split("\r\n");
@@ -142,7 +142,7 @@ device = '/dev/ttyAMA0'
 message = ''
 commands = []
 try:
-	opts, args = getopt.getopt(sys.argv[1:],"hD:m:tvtiHSq", \
+	opts, args = getopt.getopt(sys.argv[1:],"D:m:vtiHSqh", \
 		["device", "message", "supply-voltage", "temperature", "identity", \
 		"hardware-version", "software-version", "quiet", "help"])
 except getopt.GetoptError:
@@ -185,6 +185,8 @@ try:
 			baudrate=9600,
 			bytesize=serial.EIGHTBITS,
 			parity=serial.PARITY_NONE,
+
+                        
 			stopbits=serial.STOPBITS_ONE,
 			xonxoff=False,
 			rtscts=False
@@ -200,15 +202,15 @@ except serial.SerialException as e:
 
 # Test modem presence & echo disabling
 if not transfert('ATE0', 'OK', 'ERROR') :
-	sys.stderr.write(' ERROR: No reply')
+	sys.stderr.write(' ERROR: No reply\n')
 	serialFd.close()
 	sys.exit(1)
 
-# Excute commands
+# Execute commands
 for cmd in commands :
 	if cmd == 'MSG':
 		if message == '' :
-			sys.stderr.write('ERROR: message is void!')
+			sys.stderr.write('ERROR: message is void!\n')
 			ret = 1
 		else :
 			ret = sendMsg(message)
